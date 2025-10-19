@@ -76,3 +76,7 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Large files
+*.dmg
+Docker.dmg
