@@ -1,0 +1,87 @@
+MINERAL INSIGHTS - LANGGRAPH WORKFLOW
+=====================================
+
+                    ┌─────────────────┐
+                    │     START       │
+                    └─────────┬───────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │  RETRIEVE       │
+                    │  DOCUMENTS      │ ◄── Single Semantic Search
+                    │                 │     (Qdrant Vector DB)
+                    └─────────┬───────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │   RANK          │ ◄── Smart Relevance Scoring
+                    │  DOCUMENTS      │     + Deduplication
+                    └─────────┬───────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │   GENERATE      │ ◄── Rich Context from:
+                    │    ANSWER       │     • Forum Discussions
+                    │                 │     • Texas Permits  
+                    │                 │     • Oklahoma Permits
+                    │                 │     • Lease Offers
+                    │                 │     • Mineral Offers
+                    └─────────┬───────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │ CONFIDENCE      │ ◄── Threshold: < 0.6
+                    │    CHECK        │
+                    └─────┬─────┬─────┘
+                          │     │
+                    LOW   │     │   HIGH
+                    CONF  │     │   CONF
+                          ▼     ▼
+                 ┌─────────────┐ ┌─────────────┐
+                 │    TAVILY   │ │  VALIDATE   │
+                 │ WEB SEARCH  │ │   & FORMAT  │
+                 │             │ │             │
+                 └─────┬───────┘ └─────┬───────┘
+                       │               │
+                       ▼               │
+                 ┌─────────────┐       │
+                 │  GENERATE   │       │
+                 │ ENHANCED    │       │
+                 │   ANSWER    │       │
+                 └─────┬───────┘       │
+                       │               │
+                       └───────┬───────┘
+                               │
+                               ▼
+                    ┌─────────────────┐
+                    │      END        │
+                    └─────────────────┘
+
+DATA SOURCES:
+=============
+• Forum Discussions (3,000+ topics)
+• Texas Permits (5,000+ permits)  
+• Oklahoma Permits (636 permits)
+• Lease Offers (419 offers)
+• Mineral Offers (145 offers)
+Total: ~26,500 documents
+
+POWERED BY:
+===========
+• LangGraph + OpenAI GPT-4 + Qdrant + Tavily
+
+WORKFLOW FEATURES:
+==================
+✅ Single Semantic Search (Fast & Efficient)
+✅ Smart Deduplication (~40% duplicate reduction)
+✅ Confidence-Based Web Search Routing
+✅ Rich Context from Multiple Data Types
+✅ Off-Topic Query Handling
+✅ Comprehensive Answer Generation
+
+CONFIDENCE THRESHOLDS:
+======================
+• High Confidence (≥0.6): Direct to validation
+• Low Confidence (<0.6): Trigger web search
+• Very Low Confidence (<0.3): Add disclaimer note
+

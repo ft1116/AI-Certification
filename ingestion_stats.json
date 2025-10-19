@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-10-18T16:41:11.135260",
+  "duration_seconds": 5722.213084,
+  "stats": {
+    "total_documents": 27268,
+    "mineral_offers": 145,
+    "lease_offers": 419,
+    "forum_posts": 21109,
+    "texas_permits": 4959,
+    "oklahoma_permits": 636,
+    "errors": 0,
+    "api_calls": 27268,
+    "estimated_cost": 0.08250625499999849
+  }
+}

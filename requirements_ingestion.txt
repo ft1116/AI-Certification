@@ -1,0 +1,13 @@
+pandas>=2.0.0
+qdrant-client>=1.7.0
+openai>=1.0.0
+numpy>=1.24.0
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+langchain
+langchain-openai
+langchain-core
+langgraph
+tavily-python
+ragas
+pyarrow

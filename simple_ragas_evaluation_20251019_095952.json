@@ -1,0 +1,224 @@
+{
+  "timestamp": "2025-10-19T09:59:52.941439",
+  "overall_scores": {
+    "faithfulness": 0.4678195488721804,
+    "answer_relevancy": 0.7299206349206349,
+    "context_precision": 0.20666666666666664,
+    "context_recall": 0.09244306418219461
+  },
+  "category_scores": {
+    "Faithfulness": {
+      "activity_search": 0.59,
+      "comparative": 0.4,
+      "detailed_factual": 0.0,
+      "factual": 0.4,
+      "geological": 0.92,
+      "market_information": 0.44,
+      "procedural": 0.621,
+      "regulatory": 0.0,
+      "specific_search": 0.84,
+      "trend_analysis": 0.467
+    },
+    "Answer Relevancy": {
+      "activity_search": 0.714,
+      "comparative": 0.833,
+      "detailed_factual": 0.667,
+      "factual": 0.857,
+      "geological": 0.833,
+      "market_information": 0.667,
+      "procedural": 0.6,
+      "regulatory": 0.75,
+      "specific_search": 0.778,
+      "trend_analysis": 0.6
+    },
+    "Context Precision": {
+      "activity_search": 0.333,
+      "comparative": 0.0,
+      "detailed_factual": 0.0,
+      "factual": 0.5,
+      "geological": 0.0,
+      "market_information": 0.4,
+      "procedural": 0.0,
+      "regulatory": 0.0,
+      "specific_search": 0.5,
+      "trend_analysis": 0.333
+    },
+    "Context Recall": {
+      "activity_search": 0.043,
+      "comparative": 0.0,
+      "detailed_factual": 0.0,
+      "factual": 0.104,
+      "geological": 0.0,
+      "market_information": 0.192,
+      "procedural": 0.0,
+      "regulatory": 0.0,
+      "specific_search": 0.19,
+      "trend_analysis": 0.395
+    },
+    "Confidence": {
+      "activity_search": 1.0,
+      "comparative": 1.0,
+      "detailed_factual": 1.0,
+      "factual": 1.0,
+      "geological": 1.0,
+      "market_information": 1.0,
+      "procedural": 1.0,
+      "regulatory": 1.0,
+      "specific_search": 0.3,
+      "trend_analysis": 1.0
+    }
+  },
+  "detailed_results": [
+    {
+      "Question": "What are typical lease terms for oil and gas drill...",
+      "Category": "factual",
+      "Faithfulness": 0.4,
+      "Answer Relevancy": 0.8571428571428571,
+      "Context Precision": 0.5,
+      "Context Recall": 0.10357142857142856,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "Show me Pioneer Natural Resources drilling activit...",
+      "Category": "specific_search",
+      "Faithfulness": 0.84,
+      "Answer Relevancy": 0.7777777777777778,
+      "Context Precision": 0.5,
+      "Context Recall": 0.19047619047619047,
+      "Confidence": 0.30000000000000004
+    },
+    {
+      "Question": "What's the market price for mineral rights in Okla...",
+      "Category": "market_information",
+      "Faithfulness": 0.44,
+      "Answer Relevancy": 0.6666666666666666,
+      "Context Precision": 0.4,
+      "Context Recall": 0.19166666666666665,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "How do drilling permits work in Texas?",
+      "Category": "procedural",
+      "Faithfulness": 0.6210526315789473,
+      "Answer Relevancy": 0.6,
+      "Context Precision": 0.0,
+      "Context Recall": 0.0,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "Compare lease offers between Texas and Oklahoma",
+      "Category": "comparative",
+      "Faithfulness": 0.4,
+      "Answer Relevancy": 0.8333333333333334,
+      "Context Precision": 0.0,
+      "Context Recall": 0.0,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "What formations are being targeted in Oklahoma dri...",
+      "Category": "geological",
+      "Faithfulness": 0.92,
+      "Answer Relevancy": 0.8333333333333334,
+      "Context Precision": 0.0,
+      "Context Recall": 0.0,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "What are the current trends in mineral rights tran...",
+      "Category": "trend_analysis",
+      "Faithfulness": 0.4666666666666667,
+      "Answer Relevancy": 0.6,
+      "Context Precision": 0.3333333333333333,
+      "Context Recall": 0.3952380952380952,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "How do royalty rates vary by formation in Texas?",
+      "Category": "detailed_factual",
+      "Faithfulness": 0.0,
+      "Answer Relevancy": 0.6666666666666666,
+      "Context Precision": 0.0,
+      "Context Recall": 0.0,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "What are the environmental considerations for dril...",
+      "Category": "regulatory",
+      "Faithfulness": 0.0,
+      "Answer Relevancy": 0.75,
+      "Context Precision": 0.0,
+      "Context Recall": 0.0,
+      "Confidence": 1.0
+    },
+    {
+      "Question": "Show me recent drilling activity in the Permian Ba...",
+      "Category": "activity_search",
+      "Faithfulness": 0.5904761904761904,
+      "Answer Relevancy": 0.7142857142857143,
+      "Context Precision": 0.3333333333333333,
+      "Context Recall": 0.043478260869565216,
+      "Confidence": 1.0
+    }
+  ],
+  "test_questions": [
+    "What are typical lease terms for oil and gas drilling in Texas?",
+    "Show me Pioneer Natural Resources drilling activity in Midland County",
+    "What's the market price for mineral rights in Oklahoma?",
+    "How do drilling permits work in Texas?",
+    "Compare lease offers between Texas and Oklahoma",
+    "What formations are being targeted in Oklahoma drilling permits?",
+    "What are the current trends in mineral rights transactions?",
+    "How do royalty rates vary by formation in Texas?",
+    "What are the environmental considerations for drilling permits?",
+    "Show me recent drilling activity in the Permian Basin"
+  ],
+  "answers": [
+    "Based on the information provided, here are the typical lease terms for oil and gas drilling in Texas:\n\n## Primary Term\n**3 years** is the standard primary term mentioned in the context. This is the initial period during which the operator has the right to explore and drill on your property.\n\n## Lease Structure\nOil and gas leases typically have two phases:\n\n1. **Primary Term**: The first 3 years (or as negotiated). During this time, the operator pays you a bonus payment and must begin drilling operations.\n\n2. **Secondary Term (Held By Production - HBP)**: If a productive well is drilled during the primary term, the lease automatically extends for as long as the well produces in paying quantities. This secondary term can last for years or even decades.\n\n## Bonus Payments\nThe context shows significant variation in bonus offers in Texas:\n- $600 per acre (Freestone County)\n- $16,000 per acre (Freestone County - different offer)\n- Amounts vary widely based on location and operator interest\n\n## Important Considerations\n- The **draft lease is rarely in the mineral owner's favor**, so negotiation and better wording are typically needed\n- **Continuing operations clauses** are common, allowing operators to maintain the lease while drilling is occurring\n- Time frames for continuing operations (90-180 days) should be negotiated to prevent indefinite delays\n\n**Recommendation**: Given the complexity and long-term implications of these leases, it's advisable to consult with a mineral rights attorney or expert familiar with your specific Texas county before signing any lease agreement.",
+    "# Pioneer Natural Resources Drilling Activity in Midland County\n\nBased on the current information, here's what I can tell you about Pioneer Natural Resources' drilling activity in Midland County, Texas:\n\n## Recent Drilling Permit\n\n**Active Permit:**\n- **Well Name:** 216H\n- **Lease:** ALLEDER-WELCH 33P\n- **Location:** Section 33, Midland County, Texas\n- **Type:** Horizontal well\n- **Purpose:** New Drill\n- **Operator:** Pioneer Natural Resources USA, Inc.\n\n## Production Performance (June 2025)\n\nPioneer is the **dominant operator** in Midland County with impressive production numbers:\n- **7.9 million barrels** of oil\n- **39,500 MCF** of natural gas\n- **9.7 million BOE** (barrels of oil equivalent) total\n\nThis represents the highest production volume among all operators in Midland County.\n\n## Major Leases & Production History\n\nPioneer operates several highly productive leases in Midland County, including:\n\n**Top Producing Units:**\n- **Texas Ten Y Pu** - 44.8M BBL cumulative\n- **Shackelford Spraberry Unit** - 41.8M BBL cumulative\n- **Preston Spraberry Unit** - 29.2M BBL cumulative\n- **Preston 5** - 11.1M BBL cumulative\n\n## Historical Context\n\nIn 2023, Pioneer demonstrated strong operational performance in the Midland Basin by placing **482 horizontal wells** on production throughout the year, with 135 wells added in Q4 alone.\n\nPioneer Natural Resources is clearly one of the most active and productive operators in Midland County, with extensive leasehold positions and ongoing horizontal drilling programs focused on the prolific Spraberry formation.\n\nWould you like more specific information about any particular lease or drilling activity in this area?",
+    "Based on the information provided, **mineral rights prices in Oklahoma vary significantly by county and location**, ranging from as low as $50 per acre to $4,500+ per acre. Here's what the data shows:\n\n## Price Range by County:\n\n- **Choctaw County**: ~$50/acre (very low activity - last lease in 2019)\n- **Coal County**: $300/acre offer mentioned\n- **Lincoln County**: $600/acre offer (Section 33-15N-5E)\n- **McClain County**: $4,500/acre on the lower end of offers (Sections 20-7N-2W and 29-7N-2W)\n\n## Key Factors Affecting Price:\n\n1. **Location is critical** - Prices vary dramatically between counties\n2. **Recent drilling activity** - Areas with active leasing command higher prices\n3. **Production history** - Producing areas are more valuable\n4. **Proximity to existing wells** - Nearby production increases value\n\n## Important Considerations:\n\n- **There is no single \"market price\"** for Oklahoma mineral rights\n- The same county can have different values in different sections\n- Recent offers don't necessarily represent fair market value\n- Areas with little recent activity (like Choctaw County) have much lower values\n\n**My recommendation**: To determine fair market value for specific mineral rights, you need to research:\n- Recent drilling permits in that specific section/township/range\n- Active leases in the immediate area\n- Production data from nearby wells\n- Recent comparable sales\n\nWould you like help evaluating mineral rights in a specific Oklahoma county or section?",
+    "# How Drilling Permits Work in Texas\n\nBased on the drilling permit information provided, here's how the process works in Texas:\n\n## Texas Railroad Commission (RRC) Permits\n\nDrilling permits in Texas are issued and regulated by the **Texas Railroad Commission**, which is the state's primary oil and gas regulatory agency.\n\n## Key Components of a Drilling Permit\n\nFrom the examples shown, a Texas drilling permit typically includes:\n\n1. **Operator Information**: The company authorized to drill (identified by a unique operator number)\n\n2. **Well Number**: Sequential numbering for wells on a particular lease\n\n3. **Location Details**: \n   - County where drilling will occur\n   - Specific section or survey information\n\n4. **Drilling Purpose**: Common purposes include:\n   - New Drill (exploring or developing new production)\n   - Re-entry, plugback, or other operations\n\n5. **Well Profile**: The drilling method, such as:\n   - **Vertical**: Straight down drilling\n   - **Directional/Horizontal**: Angled drilling to reach specific formations\n\n6. **Lease Name**: The property or lease where drilling is authorized\n\n## What This Means for Mineral Rights Owners\n\nIf you own mineral rights in Texas, operators must obtain these permits before drilling on your property. The permit system provides regulatory oversight and public record of drilling activities.\n\n**Note**: The context provided shows permit basics but doesn't detail the full application process, timelines, bonding requirements, or notification procedures. For complete information about the permitting process, you would want to consult the Texas Railroad Commission's regulations or a qualified oil and gas attorney.",
+    "Based on the limited context provided, I can offer some initial guidance about comparing lease offers between Texas and Oklahoma:\n\n## Key Difference Highlighted\n\nThe forum discussion mentions an important distinction: **Texas and Oklahoma have very different lease language**. This was specifically noted when someone referenced TLMA (Texas Land & Minerals Association) in response to an Oklahoma leasing question.\n\n## What This Means for Comparing Offers\n\nWhen comparing lease offers between these two states, you should be aware that:\n\n1. **State-Specific Provisions**: Lease terms, clauses, and standard practices vary significantly between Texas and Oklahoma due to different state laws and regulations.\n\n2. **Language Differences**: The actual wording and structure of leases will differ, even for similar concepts.\n\n3. **Legal Framework**: Each state has its own body of oil and gas law that affects how leases are interpreted and enforced.\n\n## What I Need to Provide Better Guidance\n\nTo give you a more comprehensive comparison, it would be helpful to know:\n\n- **Specific lease terms** you're comparing (royalty rates, bonus payments, lease duration, etc.)\n- **Which counties** the properties are located in\n- **Particular clauses** you have questions about (Pugh clause, shut-in royalty, depth limitations, etc.)\n- **The actual lease offers** you're considering\n\nI'd recommend consulting with an oil and gas attorney licensed in the respective state(s) before signing any lease, as the differences between Texas and Oklahoma lease provisions can significantly impact your rights and financial returns.",
+    "Based on the drilling permit information provided, there are **two formations** being targeted in Oklahoma:\n\n## Formations Identified:\n\n1. **MISSISSIPPIAN** - This is the primary target, with two Continental Resources permits in Grady County drilling to approximately 29,934 feet. The Mississippian formation is a significant oil and gas producing zone in Oklahoma, particularly in the STACK (Sooner Trend Anadarko Basin Canadian and Kingfisher Counties) play area.\n\n2. **TURK** (likely Turkeyfoot or Turkey Creek formation) - This is being targeted by SNR Operating LLC in Kay County at a much shallower depth of approximately 4,003 feet.\n\n## Key Observations:\n\n- The **Mississippian wells are significantly deeper** (nearly 30,000 feet), indicating horizontal drilling operations typical of unconventional resource development\n- The **Turk formation well is much shallower** (about 4,000 feet), suggesting a conventional vertical well\n- **Grady County** appears to have active Mississippian development\n- **Kay County** has activity in shallower formations\n\n**Note:** This represents only a small sample of drilling permits. Oklahoma has numerous other productive formations including the Woodford Shale, Hunton Limestone, Cherokee, and others that may not be represented in this limited dataset.",
+    "Based on the limited forum discussions provided, I can share a few observations about mineral rights transactions, though I should note that this context offers only a snapshot:\n\n## Observable Trends:\n\n**1. Active Buying Interest**\n- Mineral owners are regularly receiving unsolicited offers to purchase their mineral rights, particularly in productive areas like the Eagle Ford formation in LaSalle County, Texas.\n\n**2. Offers Often Signal Activity**\n- As one experienced mineral owner noted, receiving purchase offers frequently indicates that \"something was going or about to happen\" - meaning operators may be planning new drilling, development, or have identified increased value in the area.\n\n**3. Common Advice: Hold Rather Than Sell**\n- There's a sentiment among mineral owners to \"hang onto your minerals\" when receiving offers, suggesting that buyers may be offering less than the true value, especially if they anticipate future development.\n\n## What This Context Doesn't Tell Us:\n\nTo provide a more comprehensive answer about current trends, I would need additional information about:\n- Actual transaction prices and valuation multiples\n- Geographic patterns in buying activity\n- Types of buyers (individuals, companies, institutional investors)\n- Terms being offered (lump sum vs. royalty retention)\n- Market conditions affecting oil and gas prices\n- Recent drilling permit activity in specific areas\n\n**Recommendation:** If you're considering a mineral rights transaction, I'd suggest researching recent drilling permits in your area, current production data, and consulting with a mineral rights advisor or attorney before making any decisions.",
+    "Based on the provided forum discussions, I don't have enough specific information to give you a detailed answer about how royalty rates vary by formation in Texas.\n\n## What I Can Tell You:\n\nThe forum discussions mention:\n- **Allocation wells** in Texas have specific royalty calculation formulas\n- Royalty rates like **18.5%** are referenced as examples\n- Royalty calculations can vary by **specific location** (block, abstract, section)\n\n## What's Missing:\n\nTo properly answer how royalty rates vary by formation in Texas, I would need information about:\n\n1. **Specific formations** (e.g., Eagle Ford, Permian Basin, Barnett Shale, Haynesville)\n2. **Typical royalty ranges** for each formation\n3. **Market factors** that influence rates in different formations\n4. **Historical trends** by formation\n5. **Geological and production characteristics** that affect royalty negotiations\n\n## What Would Be Helpful:\n\n- **Standard royalty rates** typically range from 12.5% to 25% in Texas, but this can vary significantly\n- Formation-specific factors like **depth, productivity, and drilling costs** often influence negotiated rates\n- **Newer, more productive formations** may command higher royalty rates\n\nI'd recommend contacting operators directly (as mentioned in the forum) or consulting with a landman or mineral rights attorney who can provide formation-specific data for your area of interest. You might also specify which Texas formations you're most interested in for more targeted information.",
+    "Based on the provided context, I don't have specific information about environmental considerations for drilling permits. The forum discussions shown are quite brief and don't contain details about environmental requirements or considerations.\n\n**What I can tell you generally:**\n\nEnvironmental considerations for drilling permits typically include:\n\n1. **Water protection** - groundwater contamination prevention, surface water impacts\n2. **Air quality** - emissions controls and monitoring\n3. **Wildlife and habitat** - protecting endangered species and sensitive ecosystems\n4. **Waste management** - proper disposal of drilling fluids and produced water\n5. **Land reclamation** - restoration plans after drilling operations\n6. **Noise and light pollution** - impacts on surrounding communities\n\n**What would be helpful:**\n\nTo get accurate, specific information about environmental considerations for your situation, I'd recommend:\n\n- **Contacting your state's oil and gas regulatory agency** - they can provide specific permit requirements\n- **Consulting with an oil and gas attorney or environmental consultant** - as suggested in the forum discussions\n- **Reviewing your state's environmental regulations** - requirements vary significantly by location\n- **Speaking with the petroleum landman or operator** - they should be familiar with the environmental compliance requirements for your area\n\nThe forum discussions suggest that these technical and regulatory questions are best addressed by qualified professionals who can evaluate your specific circumstances.\n\nIs there a particular state or aspect of environmental permitting you're most concerned about?",
+    "# Recent Drilling Activity in the Permian Basin\n\nBased on the available information, here's what I can tell you about recent drilling activity in the Permian Basin:\n\n## Active Drilling Permits\n\nThere are several recent drilling permits issued in the Permian Basin region:\n\n### 1. **Midland County**\n- **Permian Deep Rock Oil Co., LLC** - Horizontal well (H115WA) on the Chaparral 115 MIPA Unit, Section 14\n- **Tejas Permian Operating, LLC** - Vertical well (Well #1) on the JNOT SWD lease, Section 41\n\n### 2. **Loving County**\n- **WPX Energy Permian, LLC** - Horizontal well (414H) on the CBR 16-21I-56-1 lease, Section 9\n\n## Industry Context\n\nAccording to forum discussions, there's significant activity and investment in the region:\n\n- **XTO Energy** is building a new regional headquarters in Carlsbad, New Mexico, indicating long-term commitment to Permian operations\n- The **Texas Independent Producers & Royalty Owners (TIPRO)** has reported on changing demographics and economic growth in the Permian Basin\n- Economic growth is driven by oil and gas but extends beyond just that sector\n\n## Note on Data Limitations\n\nThe drilling permits shown represent a snapshot of activity. For a more comprehensive view of recent drilling activity, I'd recommend:\n- Checking the Texas Railroad Commission's GIS map for complete well data\n- Looking at permit filings over the last 6-18 months\n- Reviewing completion reports to see which wells are actually producing\n\nWould you like more specific information about any particular county or operator in the Permian Basin?"
+  ],
+  "ground_truths": [
+    "Oil and gas lease terms in Texas typically include a primary term of 3-5 years, royalty rates of 12.5-25%, bonus payments ranging from $100-$5,000 per acre, and various clauses for drilling obligations, shut-in provisions, and surface use agreements.",
+    "Pioneer Natural Resources has significant drilling activity in Midland County, Texas, with multiple permits for horizontal drilling in the Wolfcamp and Spraberry formations.",
+    "Mineral rights prices in Oklahoma vary by location and formation, typically ranging from $500-$3,000 per acre for producing areas, with higher prices in the SCOOP/STACK plays.",
+    "Texas drilling permits are issued by the Railroad Commission (RRC) and require operators to submit applications with well location, depth, formation targets, and environmental compliance information.",
+    "Texas lease offers typically have higher bonus payments ($1,000-$5,000/acre) but similar royalty rates (12.5-25%), while Oklahoma offers may have lower bonuses but competitive royalty rates, with both states having similar primary terms of 3-5 years.",
+    "Oklahoma drilling permits target various formations including the Woodford Shale, Mississippian Lime, Hunton, and Meramec formations, with the Woodford being particularly active in the SCOOP/STACK plays.",
+    "Current trends in mineral rights transactions include increased consolidation by major operators, higher valuations in core areas, and growing interest in ESG-compliant operations.",
+    "Royalty rates in Texas vary by formation, with Eagle Ford typically commanding 20-25%, Permian Basin 15-20%, and Barnett Shale 12.5-18%, depending on location and operator.",
+    "Environmental considerations for drilling permits include water protection, air quality compliance, wildlife habitat protection, and proper waste disposal, with specific requirements varying by state and formation.",
+    "Recent Permian Basin drilling activity shows continued horizontal drilling in the Wolfcamp and Spraberry formations, with major operators like Pioneer, EOG, and Chevron leading development."
+  ],
+  "categories": [
+    "factual",
+    "specific_search",
+    "market_information",
+    "procedural",
+    "comparative",
+    "geological",
+    "trend_analysis",
+    "detailed_factual",
+    "regulatory",
+    "activity_search"
+  ],
+  "confidence_scores": [
+    1.0,
+    0.30000000000000004,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "num_questions": 10
+}

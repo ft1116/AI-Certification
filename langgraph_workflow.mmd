@@ -1,0 +1,19 @@
+graph TD
+    A["START"] --> B["RETRIEVE<br/>DOCUMENTS<br/><br/>Single Semantic Search<br/>(Qdrant Vector DB)"]
+    B --> C["RANK<br/>DOCUMENTS<br/><br/>Smart Relevance Scoring<br/>+ Deduplication"]
+    C --> D["GENERATE<br/>ANSWER<br/><br/>Rich Context from:<br/>• Forum Discussions<br/>• Texas Permits<br/>• Oklahoma Permits<br/>• Lease Offers<br/>• Mineral Offers"]
+    D --> E{"CONFIDENCE<br/>CHECK<br/><br/>Threshold: < 0.6"}
+    
+    E -->|Low Confidence| F["TAVILY<br/>WEB SEARCH"]
+    E -->|High Confidence| G["VALIDATE<br/>& FORMAT"]
+    
+    F --> H["GENERATE<br/>ENHANCED<br/>ANSWER"]
+    H --> I["END"]
+    G --> I
+    
+    style A fill:#e1f5fe
+    style I fill:#e1f5fe
+    style E fill:#ffebee
+    style F fill:#fff3e0
+    style H fill:#e8f5e8
+    style G fill:#e3f2fd

@@ -1,0 +1,143 @@
+{
+  "timestamp": "2025-10-19T16:21:01.316425",
+  "summary": {
+    "best_overall": {
+      "Retriever": "Multi-Query",
+      "Faithfulness": 0.5269529419608845,
+      "Answer Relevancy": 0.746031746031746,
+      "Context Precision": 1.0,
+      "Context Recall": 0.9235294117647059,
+      "Answer Correctness": 0.7058823529411764,
+      "Avg Latency (s)": 17.62808644771576,
+      "Avg Docs Retrieved": 104.5,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7735402896452165
+    },
+    "fastest": {
+      "Retriever": "BM25",
+      "Faithfulness": 0.4871988631101989,
+      "Answer Relevancy": 0.873015873015873,
+      "Context Precision": 1.0,
+      "Context Recall": 0.8058823529411765,
+      "Answer Correctness": 0.5,
+      "Avg Latency (s)": 9.873164534568787,
+      "Avg Docs Retrieved": 50.0,
+      "Cost Level": "Low",
+      "Weighted Score": 0.7512301546197533
+    },
+    "most_faithful": {
+      "Retriever": "Cohere Rerank",
+      "Faithfulness": 0.6818510330754188,
+      "Answer Relevancy": 0.8174603174603174,
+      "Context Precision": 1.0,
+      "Context Recall": 0.42352941176470593,
+      "Answer Correctness": 0.6176470588235294,
+      "Avg Latency (s)": 17.30549192428589,
+      "Avg Docs Retrieved": 10.0,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7212984258692282
+    },
+    "best_precision": {
+      "Retriever": "Multi-Query",
+      "Faithfulness": 0.5269529419608845,
+      "Answer Relevancy": 0.746031746031746,
+      "Context Precision": 1.0,
+      "Context Recall": 0.9235294117647059,
+      "Answer Correctness": 0.7058823529411764,
+      "Avg Latency (s)": 17.62808644771576,
+      "Avg Docs Retrieved": 104.5,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7735402896452165
+    },
+    "best_recall": {
+      "Retriever": "Multi-Query",
+      "Faithfulness": 0.5269529419608845,
+      "Answer Relevancy": 0.746031746031746,
+      "Context Precision": 1.0,
+      "Context Recall": 0.9235294117647059,
+      "Answer Correctness": 0.7058823529411764,
+      "Avg Latency (s)": 17.62808644771576,
+      "Avg Docs Retrieved": 104.5,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7735402896452165
+    }
+  },
+  "detailed_results": [
+    {
+      "Retriever": "Multi-Query",
+      "Faithfulness": 0.5269529419608845,
+      "Answer Relevancy": 0.746031746031746,
+      "Context Precision": 1.0,
+      "Context Recall": 0.9235294117647059,
+      "Answer Correctness": 0.7058823529411764,
+      "Avg Latency (s)": 17.62808644771576,
+      "Avg Docs Retrieved": 104.5,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7735402896452165
+    },
+    {
+      "Retriever": "Ensemble",
+      "Faithfulness": 0.49379613951254053,
+      "Answer Relevancy": 0.8174603174603174,
+      "Context Precision": 0.9838709677419355,
+      "Context Recall": 0.9235294117647059,
+      "Answer Correctness": 0.5,
+      "Avg Latency (s)": 166.96650207042694,
+      "Avg Docs Retrieved": 170.0,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7592941901445428
+    },
+    {
+      "Retriever": "BM25",
+      "Faithfulness": 0.4871988631101989,
+      "Answer Relevancy": 0.873015873015873,
+      "Context Precision": 1.0,
+      "Context Recall": 0.8058823529411765,
+      "Answer Correctness": 0.5,
+      "Avg Latency (s)": 9.873164534568787,
+      "Avg Docs Retrieved": 50.0,
+      "Cost Level": "Low",
+      "Weighted Score": 0.7512301546197533
+    },
+    {
+      "Retriever": "Cohere Rerank",
+      "Faithfulness": 0.6818510330754188,
+      "Answer Relevancy": 0.8174603174603174,
+      "Context Precision": 1.0,
+      "Context Recall": 0.42352941176470593,
+      "Answer Correctness": 0.6176470588235294,
+      "Avg Latency (s)": 17.30549192428589,
+      "Avg Docs Retrieved": 10.0,
+      "Cost Level": "Medium",
+      "Weighted Score": 0.7212984258692282
+    },
+    {
+      "Retriever": "Compression",
+      "Faithfulness": 0.6630894308943089,
+      "Answer Relevancy": 0.6746031746031746,
+      "Context Precision": 0.9361702127659575,
+      "Context Recall": 0.42352941176470593,
+      "Answer Correctness": 0.4411764705882353,
+      "Avg Latency (s)": 158.2039579153061,
+      "Avg Docs Retrieved": 48.5,
+      "Cost Level": "High",
+      "Weighted Score": 0.650480723339327
+    }
+  ],
+  "test_questions": [
+    "What are typical lease terms for oil and gas drilling in Texas?",
+    "Show me Pioneer Natural Resources drilling activity in Midland County",
+    "What's the market price for mineral rights in Oklahoma?",
+    "How do drilling permits work in Texas?",
+    "Compare lease offers between Texas and Oklahoma",
+    "What formations are being targeted in Oklahoma drilling permits?",
+    "What are the current trends in mineral rights transactions?",
+    "How do royalty rates vary by formation in Texas?",
+    "What are the environmental considerations for drilling permits?",
+    "Show me recent drilling activity in the Permian Basin"
+  ],
+  "ground_truths": [
+    "Lease terms typically include bonus payments ($500-$2000/acre), royalty rates (20-25%), primary term (3-5 years), and drilling commitments.",
+    "Pioneer Natural Resources has active drilling operations in Midland County, Texas, targeting the Spraberry and Wolfcamp formations."
+  ]
+}
