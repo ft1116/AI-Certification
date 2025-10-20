@@ -1,0 +1,39 @@
+# LangGraph Integration Requirements
+# Core LangGraph dependencies
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-anthropic>=0.2.0
+langchain-core>=0.3.0
+
+# Vector store dependencies
+qdrant-client>=1.7.0
+pinecone-client>=3.0.0
+
+# Web search
+tavily-python>=0.3.0
+
+# FastAPI and web framework
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+
+# Geospatial and location
+geopandas>=0.14.0
+shapely>=2.0.0
+geopy>=2.4.0
+pyproj>=3.6.0
+
+# NLP and text processing
+spacy>=3.7.0
+PyPDF2>=3.0.0
+langchain-text-splitters>=0.3.0
+
+# Utilities
+python-dotenv>=1.0.0
+aiofiles>=23.0.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Optional: For reranking (if keeping Cohere)
+cohere>=4.0.0

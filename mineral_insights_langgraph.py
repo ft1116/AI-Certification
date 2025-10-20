@@ -206,8 +206,8 @@ def create_complete_mineral_graph():
         # Sort by relevance score
         ranked_docs.sort(key=lambda x: x.metadata.get("relevance_score", 1.0), reverse=True)
         
-        # Take top 12 documents (good balance of context and focus)
-        filtered_docs = ranked_docs[:12]
+        # Take top 20 documents (improved recall with more context)
+        filtered_docs = ranked_docs[:20]
         
         print(f"🏆 Top {len(filtered_docs)} documents selected for context")
         
@@ -306,9 +306,30 @@ def create_complete_mineral_graph():
         
         # Effective prompt
         system_prompt = """You are a mineral rights expert. Answer questions about mineral rights, 
-        oil and gas, drilling permits, lease offers, and related topics. Use the provided context 
-        to give accurate, helpful answers. If the context doesn't contain enough information, 
-        say so and suggest what additional information might be helpful."""
+        oil and gas, drilling permits, lease offers, and mineral offers. Use the provided context 
+        to give accurate, helpful answers. 
+
+        IMPORTANT DISTINCTIONS:
+        - LEASE OFFERS: These are offers to lease mineral rights for drilling/exploration. They typically include bonus payments per acre and royalty rates. Lease offers are temporary agreements (usually 3-5 years) that give operators the right to drill.
+        - MINERAL OFFERS: These are offers to PURCHASE mineral rights outright. They are permanent sales transactions where the buyer acquires ownership of the minerals.
+
+        When discussing pricing:
+        - For lease offers: Provide bonus payment ranges (per acre) and typical royalty rates (usually 12.5-25%)
+        - For mineral offers: Provide purchase price ranges (per acre) for buying mineral rights
+        - Always distinguish clearly between leasing vs. purchasing
+        - When possible, provide both general ranges and rough averages
+        - Focus ONLY on the specific question asked - do not discuss unrelated topics, locations, or offer types
+        - If asked about mineral offers, do NOT mention lease offers unless specifically asked to compare
+        - If asked about lease offers, do NOT mention mineral offers unless specifically asked to compare
+        - Provide the best available information without mentioning data limitations or counts
+        - Stay focused on the geographic area and topic requested in the question
+
+        When analyzing market trends:
+        - Provide both current data AND trend direction (increasing/decreasing/stable)
+        - Include time comparisons when possible (current vs historical)
+        - Explain the drivers behind trends
+        - Give forward-looking insights when data supports it
+        - Structure market analysis with: Current Market State, Trend Direction, Key Drivers, Future Outlook, Regional Variations"""
         
         user_prompt = f"""Based on the following information about mineral rights, answer the user's question:
 
@@ -324,17 +345,36 @@ Provide a helpful, accurate answer based on the context."""
             {"role": "user", "content": user_prompt}
         ])
         
-        # Simple confidence calculation - just check if query needs current info
+        # Improved confidence calculation
         query_lower = query.lower()
         
-        # If query asks for current/recent information, lower confidence to trigger web search
+        # Check if query needs current info or is about topics not in database
         current_keywords = ["current", "recent", "today", "now", "latest", "trend", "market"]
         needs_current_info = any(keyword in query_lower for keyword in current_keywords)
         
-        if needs_current_info:
-            confidence = 0.7  # Trigger web search for current info
+        # Enhanced market trend keywords
+        market_trend_keywords = ["trends", "outlook", "forecast", "increasing", "decreasing", 
+                                "market", "prices", "activity", "drilling", "production", "volatility"]
+        is_market_trend_query = any(keyword in query_lower for keyword in market_trend_keywords)
+        
+        # Check if query is about specific plays/formations that might not be in database
+        specific_play_keywords = ["play", "formation", "shale", "basin", "waynesville", "appalachian", "ohio", "indiana", "kentucky"]
+        is_specific_play_query = any(keyword in query_lower for keyword in specific_play_keywords)
+        
+        # Shale play keywords to prevent false "not mineral rights" flags
+        shale_play_keywords = ["woodford", "barnett", "haynesville", "eagle ford", 
+                              "permian", "waynesville", "marcellus", "utica", "bakkens", "bossier"]
+        is_shale_play_query = any(keyword in query_lower for keyword in shale_play_keywords)
+        
+        # Check if the answer indicates no information was found
+        answer_lower = response.content.lower()
+        no_info_indicators = ["don't have", "no information", "not in the provided context", "not available", "not found"]
+        has_no_info = any(indicator in answer_lower for indicator in no_info_indicators)
+        
+        if needs_current_info or is_market_trend_query or is_specific_play_query or has_no_info:
+            confidence = 0.7  # Trigger web search for current info, market trends, specific plays, or when no info found
         else:
-            confidence = 0.9  # High confidence for historical/factual queries
+            confidence = 0.9  # High confidence for historical/factual queries with good data
         
         return {
             "final_answer": response.content,
@@ -368,7 +408,9 @@ Provide a helpful, accurate answer based on the context."""
             "mineral rights", "oil", "gas", "drilling", "lease", "royalty", "bonus", 
             "permit", "well", "production", "operator", "acre", "formation", "reservoir",
             "fracking", "horizontal drilling", "vertical drilling", "completion",
-            "landman", "landowner", "mineral owner", "surface rights", "working interest"
+            "landman", "landowner", "mineral owner", "surface rights", "working interest",
+            "woodford", "barnett", "haynesville", "eagle ford", "permian", "marcellus", 
+            "utica", "bakkens", "bossier", "shale", "play", "basin"
         ]
         
         query_lower = query.lower()
@@ -494,13 +536,36 @@ Provide a helpful, accurate answer based on the context."""
             context += "\n\n=== QUERY ASSESSMENT ===\nThis query appears to be outside the scope of mineral rights, oil and gas, drilling permits, and related topics."
         
         # Enhanced prompt
-        system_prompt = """You are a mineral rights expert specializing in oil and gas, drilling permits, lease offers, and related topics. 
+        system_prompt = """You are a mineral rights expert specializing in oil and gas, drilling permits, lease offers, and mineral offers. 
 
 If the query is about mineral rights, oil and gas, drilling, leasing, or related topics, provide a helpful, accurate answer based on the provided context.
+
+IMPORTANT DISTINCTIONS:
+- LEASE OFFERS: These are offers to lease mineral rights for drilling/exploration. They typically include bonus payments per acre and royalty rates. Lease offers are temporary agreements (usually 3-5 years) that give operators the right to drill.
+- MINERAL OFFERS: These are offers to PURCHASE mineral rights outright. They are permanent sales transactions where the buyer acquires ownership of the minerals.
+
+When discussing pricing:
+- For lease offers: Provide bonus payment ranges (per acre) and typical royalty rates (usually 12.5-25%)
+- For mineral offers: Provide purchase price ranges (per acre) for buying mineral rights
+- Always distinguish clearly between leasing vs. purchasing
+- When possible, provide both general ranges and rough averages
+- Focus ONLY on the specific question asked - do not discuss unrelated topics, locations, or offer types
+- If asked about mineral offers, do NOT mention lease offers unless specifically asked to compare
+- If asked about lease offers, do NOT mention mineral offers unless specifically asked to compare
+- Provide the best available information without mentioning data limitations or counts
+- Stay focused on the geographic area and topic requested in the question
+
+When analyzing market trends:
+- Provide both current data AND trend direction (increasing/decreasing/stable)
+- Include time comparisons when possible (current vs historical)
+- Explain the drivers behind trends
+- Give forward-looking insights when data supports it
+- Structure market analysis with: Current Market State, Trend Direction, Key Drivers, Future Outlook, Regional Variations
 
 If the query is outside your area of expertise (not related to mineral rights, oil and gas, drilling, leasing, etc.), politely explain that you specialize in mineral rights and suggest they ask about topics like:
 - Drilling permits and activity
 - Lease offers and terms
+- Mineral offers and purchases
 - Royalty rates and bonus payments
 - Mineral rights ownership
 - Oil and gas operations

@@ -85,3 +85,4 @@ if __name__ == "__main__":
         print("   PINECONE_INDEX_NAME=your_index_name_here")
         print("3. Install: pip install langchain-pinecone")
 
+

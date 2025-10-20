@@ -1,0 +1,285 @@
+test_number,query,confidence,sources_count,answer,sources
+1,What are typical lease offers in Oklahoma?,0.9,3,"Based on the lease offer data from Caddo County, Oklahoma, here are typical lease offer ranges:
+
+## Lease Offer Terms in Oklahoma (Caddo County)
+
+**Bonus Payments:**
+- Opening offers typically start around **$350 per acre**
+- Negotiated rates can reach **$850 - $1,600 per acre**
+- The data shows significant room for negotiation - one landowner increased their bonus from an initial $350 offer to $850
+
+**Royalty Rates:**
+- Initial offers: **3/16 (18.75%)**
+- Negotiated rates: **1/5 (20%)**
+- The 20% royalty rate appears to be a common negotiated outcome in this area
+
+**Lease Terms:**
+- Standard primary terms: **3 years**
+- Extended terms available: **3+2** (3 years primary with 2-year extension option)
+
+## Key Takeaways
+
+1. **Don't accept the first offer** - The data clearly shows opening offers can be doubled or more through negotiation
+2. **Location matters** - These figures are specific to Caddo County (Township 10N, Range 11W). Other Oklahoma counties may have different rates
+3. **Operator matters** - Continental appears active in this area, which may indicate strong drilling interest
+
+**Important Note:** These are lease offers (temporary drilling rights), not purchase offers for mineral rights. You retain ownership of your minerals with a lease and receive royalties from any production.
+
+Would you like information about lease offers in a different Oklahoma county or details about what terms to negotiate?","Lease: Continental offering  per acre in Caddo County, oklahoma; Lease: Continental offering  per acre in Caddo County, oklahoma; Lease: Continental offering  per acre in Caddo County, oklahoma"
+2,What are typical mineral offers in Texas?,0.9,5,"Based on the information provided, here's what I can tell you about **mineral offers** (purchase offers) in Texas:
+
+## Mineral Rights Purchase Offers
+
+From the limited data available, mineral rights purchase offers in **Houston County, Texas** show a range of:
+
+- **$200 - $350 per net mineral acre (NMA)**
+- The higher end ($350/NMA) appears to be in areas with better production potential
+- The lower end ($200/acre) was mentioned alongside a lease bonus offer, suggesting variability even within the same general area
+
+## Important Context & Limitations
+
+**Location matters significantly**: As noted in the context, ""some places in Houston County are very good, other spots not good at all."" The value can vary substantially based on:
+- Proximity to producing wells
+- Geological formation quality
+- Percentage of ownership you hold
+
+**Limited data**: I only have 2 mineral purchase offers in the provided information, both from Houston County. This is not enough to establish comprehensive ""typical"" rates across all of Texas.
+
+## Don't Confuse with Lease Offers
+
+Note that the lease offers shown (Comstock's $850-$1,000/acre bonuses) are **NOT** mineral purchase prices—those are temporary leasing arrangements where you retain ownership. Mineral offers are permanent sales where you give up ownership entirely.
+
+**To get better pricing information**, I would need data from:
+- More counties across Texas
+- Different geological formations (Permian Basin, Eagle Ford, Haynesville, etc.)
+- More recent transaction dates
+- Information about current drilling activity in your specific area
+
+Would you like information about lease offers instead, or do you have a specific county/area in mind?","Lease: Comstock offering  per acre in Freestone County, texas; Lease: Comstock Resources offering  per acre in Houston County, texas; Lease: Comstock Resources offering  per acre in Houston County, texas; Mineral: 350.0 per acre in Houston County, texas; Mineral: 200.0 per acre in Houston County, texas"
+3,"Compare lease offers vs mineral offers in Grady County, Oklahoma",0.9,5,"# Lease Offers vs. Mineral Offers in Grady County, Oklahoma
+
+Based on the available information, here's a comparison:
+
+## **LEASE OFFERS** (Temporary Rights to Drill)
+
+From the data provided, there are **3 lease offers** in Grady County:
+
+1. **Continental Resources** (Section 6-7N-8W)
+   - Bonus: Not specified
+   - Royalty: Not specified
+   - Term: Not specified
+
+2. **Continental** (Sections 32-8N-8W)
+   - Bonus: ""Rising with % decreases"" (unusual structure)
+   - Royalty: Not specified
+   - Term: Not specified
+
+3. **Grasslands Acquisitions** (Sections 19, 30, 31-8N-8W)
+   - **Bonus: $900 per mineral acre**
+   - **Royalty: 19%**
+   - **Term: 5 years**
+
+**Key Point:** Only one lease offer has complete pricing information ($900/acre bonus + 19% royalty).
+
+---
+
+## **MINERAL OFFERS** (Permanent Purchase)
+
+There are **2 mineral purchase offers** in Grady County:
+
+1. **Section 01-06N-07W**
+   - **Purchase Price: $6,600 per acre**
+   - Associated with active production (Roberts Well, Camino operator)
+
+2. **Sections 16, 21, and 28 (T08N, R08W)**
+   - Price: Not specified (mentioned as varying offers)
+
+---
+
+## **Key Differences & Insights:**
+
+- **Lease = Temporary:** You retain ownership; operator pays bonus upfront + ongoing royalties from production
+- **Purchase = Permanent:** You sell ownership completely for a one-time payment
+
+- **Price Comparison:** The $6,600/acre purchase offer is significantly higher than the $900/acre lease bonus, which makes sense since purchasing transfers permanent ownership versus temporary drilling rights
+
+- **Limited Data:** Most offers lack complete pricing details, making comprehensive comparison difficult
+
+**Recommendation:** If you're considering offers, I'd need more complete information about bonus amounts, royalty rates, and purchase prices to provide specific guidance on which option might be better for your situation.","Lease: Continental Resources offering  per acre in Grady County, oklahoma; Lease: Continental offering  per acre in Grady County, oklahoma; Lease: Grasslands Acquisitions offering  per acre in Grady County, oklahoma; Mineral: 6600.0 per acre in Grady County, oklahoma; Mineral: None per acre in Grady County, oklahoma"
+4,What is the difference between leasing and buying mineral rights?,0.9,3,"# Difference Between Leasing and Buying Mineral Rights
+
+These are two fundamentally different transactions:
+
+## **Leasing Mineral Rights**
+When you **lease** your mineral rights, you:
+- **Retain ownership** of the minerals
+- Grant a company the **temporary right** to explore and drill for oil/gas (typically 3-5 years)
+- Receive an upfront **bonus payment** (paid per acre you own)
+- Earn ongoing **royalty payments** (typically 12.5-25% of production revenue) if wells are drilled and produce
+- Get your rights back when the lease expires (if no production occurs)
+
+**Think of it like renting out property** - you still own it, but someone else can use it temporarily.
+
+## **Buying (Selling) Mineral Rights**
+When you **sell** your mineral rights, you:
+- **Permanently transfer ownership** to the buyer
+- Receive a one-time lump sum payment
+- Give up all future royalty income
+- Lose control over future leasing decisions
+
+**This is a permanent sale** - like selling your house, not renting it.
+
+## **Key Point from Your Context**
+The forum discussions confirm that **you can sell mineral rights even while they're under lease**. The lease transfers with the sale, meaning the buyer would receive any royalty payments from existing production and would own the rights when the lease expires.
+
+## **Which is Better?**
+- **Leasing** preserves long-term ownership and provides ongoing income potential
+- **Selling** provides immediate cash but eliminates future benefits
+
+Most mineral owners prefer leasing unless they need immediate capital or want to avoid management responsibilities.","Forum: Lease and a purchase (Oil and Gas Leasing Help); Forum: Information about mineral rights (Oil and Gas Leasing Help); Forum: Leasing Mineral Rights Underneath a Current Lease, Need Advice (Oil and Gas Leasing Help)"
+5,I want to lease my mineral rights in Oklahoma - what should I expect?,0.9,4,"Based on the lease offers in your context, here's what you should expect when leasing mineral rights in Oklahoma:
+
+## Typical Lease Terms in Oklahoma (Caddo County examples):
+
+**Bonus Payments (upfront payment per acre):**
+- Range: $400 - $850 per acre
+- These examples show significant variation, with one offer starting at $350 and negotiating up to $850
+- The bonus payment is what you receive upfront just for signing the lease
+
+**Royalty Rates:**
+- Common rates: 3/16 (18.75%) to 1/5 (20%)
+- The royalty is your ongoing share of production revenue if drilling occurs
+- Higher royalty rates are generally better for mineral owners
+
+**Lease Terms:**
+- Typical: 3+2 years (3-year primary term with option for 2-year extension)
+- This means the operator has 3 years to drill, with a possible 2-year extension
+
+## Key Takeaways:
+
+1. **Negotiate!** The context shows one owner negotiated from an opening offer of $350 at 3/16 royalty up to $850 at 1/5 royalty - that's a significant improvement.
+
+2. **Location matters** - Even within the same county (Caddo), offers vary by section based on drilling activity and geology.
+
+3. **Don't accept the first offer** - Operators typically start low and expect negotiation.
+
+4. **Consider both bonus AND royalty** - A higher bonus with lower royalty might not be as valuable long-term if there's significant production.
+
+Would you like specific guidance on evaluating a particular lease offer you've received?","Lease: Continental offering  per acre in Caddo County, oklahoma; Lease: Continental offering  per acre in Caddo County, oklahoma; Lease: Continental offering  per acre in Caddo County, oklahoma; Mineral: None per acre in Coal County, oklahoma"
+6,I want to sell my mineral rights in Texas - what are current prices?,1.0,5,"# Current Mineral Rights Purchase Prices in Texas
+
+Based on recent market activity, **mineral rights purchase prices in Texas vary significantly** depending on location, production status, and acreage. Here's what the current market shows:
+
+## Price Ranges by Status
+
+**Non-Producing Minerals:**
+- **$350-600 per net mineral acre** for areas with potential but no current production
+- Example: Houston County offers around $350/acre
+- Freestone County (Fairfield area) seeing $400/acre offers
+
+**Producing Minerals:**
+- **Significantly higher** - can reach **$10,000+ per acre** for actively producing properties
+- Example: Leon County producing minerals with strong cash flow commanding premium prices
+
+## Key Factors Affecting Price
+
+1. **Production Status**: Producing minerals command much higher prices than non-producing
+2. **Location**: Different counties have vastly different values based on geology and drilling activity
+3. **Ownership Percentage**: Higher ownership percentages typically get better per-acre offers
+4. **Current Cash Flow**: For producing properties, buyers often calculate based on royalty income multiples
+
+## Important Considerations
+
+**Before selling, evaluate:**
+- Your current royalty income (if producing)
+- Long-term production potential
+- Tax implications of the sale
+- Whether you need immediate cash vs. ongoing income
+
+**Note:** The examples show offers ranging from $350/acre for non-producing rights to $10,000/acre for producing properties - that's a 28x difference! This illustrates why location and production status are critical.
+
+**Recommendation:** Get multiple offers and consider having a mineral appraiser evaluate your specific property, as Texas mineral values are highly location-dependent.
+
+Would you like more specific information about your county or help evaluating an offer you've received?","Forum: Mineral Rights Sale Offer; Forum: Mineral Rights Sale, whats fair value; Forum: Selling Mineral Rights; Mineral: Mineral Offer; Mineral: Mineral Offer"
+7,Show me recent lease offers in Texas,1.0,6,"# Recent Lease Offers in Texas
+
+Based on the available information, here are the recent lease offers across various Texas counties:
+
+## **Leon County**
+- **Operator:** Comstock (via Engelmann)
+- **Location:** T.R. Thurman Abstract 614
+- **Date:** December 2024
+- **Terms:**
+  - Bonus: **$750 per acre**
+  - Royalty: **22.5%**
+  - Lease Term: **3 years** with 2-year option
+- **Notes:** The operator reportedly wouldn't negotiate from these terms
+
+## **Cass County**
+- **Operator:** Landex Operating (working with Exxon)
+- **Terms:**
+  - Royalty: **25%**
+  - Lease Term: **3 years** with 1-year option
+- **Notes:** Some mineral owners are choosing to remain unleased in this area
+
+## **Dawson County**
+- **Operator:** EOG
+- **Location:** Section 40-5N-36W
+- **Notes:** Active leasing with bonus offers being made (specific amount not disclosed, but negotiations ongoing)
+
+## **Other Active Areas**
+
+**Smith County** (April 2025):
+- Recent lease offers reported just northeast of Tyler
+- Specific terms not yet disclosed in the forum
+
+**Martin County** (November 2024):
+- Exxon has filed permits for five horizontal wells
+- Active leasing expected in the area
+
+**Rusk County** (June 2024):
+- William Clark Survey, A-6 area
+- Mineral owners seeking information on current bonus rates
+
+---
+
+### **General Observations:**
+
+The recent Texas lease offers show:
+- **Bonus payments** ranging from $750+ per acre
+- **Royalty rates** between 22.5% - 25% (higher than the traditional 12.5%)
+- **Lease terms** typically 3 years with options for extensions
+- Major operators like **Exxon, EOG, and Comstock** are actively leasing
+
+**Tip:** If you receive a lease offer, I recommend checking the Texas Railroad Commission's GIS viewer for recent drilling permits and producing wells in your area to understand the activity level before negotiating terms.
+
+Would you like more specific information about lease offers in a particular county or guidance on evaluating lease terms?",Forum: Lease Bonus Offer; Forum: Lease Bonus Rates; Forum: New Lease Offer in Smith County; Lease: Lease Offer; Lease: Lease Offer; Lease: Lease Offer
+8,What are mineral rights selling for in Oklahoma?,0.9,2,"Based on the available data, mineral rights purchase prices in Oklahoma vary significantly by county and location:
+
+## Current Market Data:
+
+**Stephens County** (Section 18-6N-6W):
+- **$42,000 per acre** - This is an exceptionally high offer, likely indicating an area with proven production or high development potential
+
+**Coal County**:
+- **$300 per acre** - This represents a more typical offer for areas with less proven production or development activity
+
+## Key Insights:
+
+The dramatic difference between these two offers ($42,000 vs $300 per acre) illustrates that mineral rights values in Oklahoma are **highly location-specific** and depend on several factors:
+
+- **Production history** in the area
+- **Active drilling operations** nearby
+- **Geological formation quality**
+- **Proximity to existing wells**
+- **Current commodity prices**
+
+## Important Notes:
+
+1. The $42,000/acre offer in Stephens County is unusually high and may indicate exceptional circumstances (active production, proven reserves, or competitive bidding)
+
+2. The $300/acre offer from Spring Rock Minerals in Coal County is more representative of speculative or undeveloped mineral rights
+
+3. With only two data points, it's difficult to establish a reliable average, but typical Oklahoma mineral rights purchases generally range from **$500 to $5,000 per acre** for moderately productive areas, with premium locations commanding much higher prices
+
+**Recommendation:** If you're considering selling, I'd suggest getting multiple offers and researching recent drilling permits and production data for your specific section to understand where your property falls in this wide range.","Mineral: 25149.7 per acre in Stephens County, oklahoma; Mineral: 300.0 per acre in Coal County, oklahoma"

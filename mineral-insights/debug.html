@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Mapping</title>
+</head>
+<body>
+    <h1>Debug Mapping Flow</h1>
+    <div id="output"></div>
+    
+    <script>
+        async function testMappingFlow() {
+            const output = document.getElementById('output');
+            
+            try {
+                output.innerHTML += '<p>🧪 Testing mapping flow...</p>';
+                
+                // Test the chat endpoint
+                const response = await fetch('http://localhost:8003/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: "Map drilling permits in Grady County",
+                        conversation_id: "debug123"
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    output.innerHTML += `<p>✅ Backend response received</p>`;
+                    output.innerHTML += `<p>needs_mapping: ${data.needs_mapping}</p>`;
+                    output.innerHTML += `<p>mapping_data present: ${data.mapping_data ? 'Yes' : 'No'}</p>`;
+                    
+                    if (data.mapping_data) {
+                        output.innerHTML += `<p>GeoJSON features: ${data.mapping_data.features.length}</p>`;
+                        output.innerHTML += `<p>First feature coordinates: ${JSON.stringify(data.mapping_data.features[0].geometry.coordinates)}</p>`;
+                        
+                        // Simulate what the frontend should do
+                        const mockLocation = {
+                            type: 'permits',
+                            data: data.mapping_data,
+                            summary: data.mapping_summary
+                        };
+                        
+                        output.innerHTML += `<p>✅ Mock location object created:</p>`;
+                        output.innerHTML += `<pre>${JSON.stringify(mockLocation, null, 2)}</pre>`;
+                    }
+                } else {
+                    output.innerHTML += `<p>❌ Backend error: ${response.status}</p>`;
+                }
+                
+            } catch (error) {
+                output.innerHTML += `<p>❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Run the test when page loads
+        testMappingFlow();
+    </script>
+</body>
+</html>
