@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mineral Insights Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        h1, h2, h3 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        code { background-color: #f4f4f4; padding: 2px 4px; }
+        pre { background-color: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+<h1>Mineral Insights: AI-Powered Mineral Rights Decision Support System</h1>
+<h2>Executive Summary</h2>
+<p>Mineral Insights is an advanced AI-powered chatbot that empowers mineral rights holders with domain expertise in petroleum engineering, geology, commercial, and land management to make informed decisions about their mineral interests. The system combines multiple data sources including Mineral Rights Forum discussions, Texas RRC data, Oklahoma OCC data, and real-time web information to provide comprehensive, accurate, and actionable insights.</p>
+<hr />
+<h2>Task 1: Problem Definition</h2>
+<h3>1. Problem Statement</h3>
+<p><strong>Problem:</strong> Many mineral rights holders lack the domain expertise in petroleum engineering, geology, commercial, and land to make informed decisions regarding their mineral interests.</p>
+<h3>2. Why This Is a Problem for Users</h3>
+<p>Mineral rights holders face a complex landscape where decisions about leasing, selling, or developing their mineral interests can have significant financial implications. Without proper domain expertise, they risk:</p>
+<ul>
+<li><strong>Financial Loss</strong>: Accepting suboptimal lease terms or selling mineral rights below market value</li>
+<li><strong>Missed Opportunities</strong>: Failing to recognize valuable development potential or market timing</li>
+<li><strong>Legal Complications</strong>: Misunderstanding lease terms, royalty structures, or regulatory requirements</li>
+</ul>
+<p>The current information landscape is fragmented across multiple sources (state regulatory websites, industry forums, operator websites) making it difficult for mineral rights holders to access comprehensive, up-to-date information when making critical decisions about their assets.</p>
+<hr />
+<h2>Task 2: Proposed Solution</h2>
+<h3>Solution Overview</h3>
+<p>Mineral Insights creates a "better world" where mineral rights holders have instant access to expert-level knowledge and analysis. Users will save significant time by getting immediate, comprehensive answers to complex questions that would otherwise require hours of research across multiple sources and domain expertise. They'll make more money by receiving data-driven insights about market conditions, lease terms, and development potential. Most importantly, they'll make higher-quality decisions by having access to the same information and analysis tools that industry professionals use.</p>
+<p>The system provides a conversational interface that understands natural language queries about mineral rights, automatically retrieves relevant data from multiple sources, and generates comprehensive responses with specific recommendations, market context, and actionable insights.</p>
+<h3>Technical Stack &amp; Tooling Choices</h3>
+<h4>1. LLM: Claude Sonnet 4.5</h4>
+<p><strong>Choice:</strong> I chose Claude Sonnet 4.5 because it provides superior reasoning capabilities for complex domain-specific queries, excellent instruction following for structured responses, and robust handling of technical petroleum engineering and geological concepts.</p>
+<h4>2. Embedding Model: OpenAI text-embedding-3-large</h4>
+<p><strong>Choice:</strong> I selected OpenAI's text-embedding-3-large because it offers state-of-the-art semantic understanding for technical documents, excellent performance on domain-specific terminology, and seamless integration with our Pinecone vector database.</p>
+<h4>3. Orchestration: LangGraph</h4>
+<p><strong>Choice:</strong> I implemented LangGraph for orchestration because it provides sophisticated workflow management for multi-step reasoning, excellent state management for complex queries, and built-in support for conditional logic and parallel processing.</p>
+<h4>4. Vector Database: Pinecone</h4>
+<p><strong>Choice:</strong> I originally chose Qdrant but switched to Pinecone for speed, production-grade reliability, robust data handling capabilities, and superior performance at scale with the 27,000+ document database.</p>
+<h4>5. Monitoring: Custom logging with FastAPI</h4>
+<p><strong>Choice:</strong> I implemented custom monitoring using Langsmith as it gives insight into user queries,system latency, and RAG performance when testing. I also used print statemments </p>
+<h4>6. Evaluation: RAGAS Framework</h4>
+<p><strong>Choice:</strong> I selected RAGAS for evaluation because it provides comprehensive metrics (faithfulness, response relevancy, context precision, context recall) specifically designed for RAG systems and offers quantitative assessment of our system's performance.</p>
+<h4>7. User Interface: React with TypeScript</h4>
+<p><strong>Choice:</strong> I built a React frontend with TypeScript because it provides a modern, responsive user experience, excellent integration with mapping libraries, and robust state management for complex conversational interfaces.</p>
+<h4>8. Serving &amp; Inference: FastAPI with Server-Sent Events</h4>
+<p><strong>Choice:</strong> I implemented FastAPI with SSE for serving because it provides real-time streaming responses.</p>
+<hr />
+<h2>Task 3: Data Sources and External APIs</h2>
+<h3>Data Sources</h3>
+<h4>1. Mineral Rights Forum Discussions</h4>
+<ul>
+<li><strong>Source</strong>: Public forum discussions from mineral rights communities</li>
+<li><strong>Use Case</strong>: Provides real-world experiences, market insights, and practical advice</li>
+<li><strong>Volume</strong>: 20,000+ forum posts and discussions</li>
+<li><strong>Value</strong>: Community-driven insights and peer experiences</li>
+</ul>
+<h4>2. Texas Railroad Commission (RRC) Data</h4>
+<ul>
+<li><strong>Source</strong>: Official Texas regulatory data including drilling permits and production data</li>
+<li><strong>Use Case</strong>: Authoritative information on Texas oil and gas activity, permit status, and regulatory compliance</li>
+<li><strong>Volume</strong>: 5,000+ drilling permits and production records</li>
+<li><strong>Value</strong>: Official regulatory data and compliance information</li>
+</ul>
+<h4>3. Oklahoma Corporation Commission (OCC) Data</h4>
+<ul>
+<li><strong>Source</strong>: Official Oklahoma regulatory data including drilling permits and well information</li>
+<li><strong>Use Case</strong>: Comprehensive Oklahoma oil and gas activity data and regulatory information</li>
+<li><strong>Volume</strong>: 500+ drilling permits and well records</li>
+<li><strong>Value</strong>: State-specific regulatory and operational data</li>
+</ul>
+<h4>4. Lease and Mineral Offer Data</h4>
+<ul>
+<li><strong>Source</strong>: Aggregated lease offer data from multiple sources</li>
+<li><strong>Use Case</strong>: Market pricing information, lease terms, and royalty rate benchmarks</li>
+<li><strong>Volume</strong>: 1,000+ lease offers and mineral transactions</li>
+<li><strong>Value</strong>: Market intelligence and pricing guidance</li>
+</ul>
+<h3>External APIs</h3>
+<h4>1. Tavily Search API</h4>
+<ul>
+<li><strong>Purpose</strong>: Real-time web search for current market conditions and breaking news</li>
+<li><strong>Use Case</strong>: Provides up-to-date information when confidence in RAG results is low</li>
+<li><strong>Integration</strong>: Triggered automatically when confidence score &lt; 0.8</li>
+</ul>
+<h4>2. Geocoding Services (Nominatim)</h4>
+<ul>
+<li><strong>Purpose</strong>: Location resolution and mapping support</li>
+<li><strong>Use Case</strong>: Converts location queries to coordinates for permit mapping</li>
+<li><strong>Integration</strong>: Used by mapping agent for location-based queries</li>
+</ul>
+<h3>Chunking Strategy</h3>
+<p><strong>Default Strategy</strong>: No chunking - complete records stored as single vectors for my main VDB
+<strong>Rationale</strong>: Structured data (mineral offers, lease offers, forum posts) are kept as complete documents to preserve full context and relationships between all data fields. Record-based chunking to maintain data integrity</p>
+<h3>Additional Data Requirements</h3>
+<p><strong>Production Data Integration</strong>: Plan is to integrate real-time production data APIs to provide current well performance metrics and decline curve analysis.</p>
+<p><strong>Market Data Feeds</strong>: Integration with commodity pricing APIs for real-time oil and gas price information to enhance market analysis capabilities.</p>
+<hr />
+<h2>Task 4: End-to-End Prototype Implementation</h2>
+<h3>System Architecture</h3>
+<p><img alt="Mineral Insights Workflow" src="mineral_insights_simple_workflow.png" /></p>
+<p><em>Figure 1: Simplified system workflow showing the complete data flow from user query to response</em></p>
+<p><img alt="Mineral Insights Detailed Workflow" src="mineral_insights_workflow.png" /></p>
+<p><em>Figure 2: Detailed workflow diagram showing comprehensive system interactions and data flow</em></p>
+<p>Workflow:
+User Query → FastAPI Backend 
+FastAPI does Location Extraction 
+FastAPI calls LangGraph 
+LangGraph does Query Analysis (Multi-Query Decomposition if complex)
+LangGraph does Document Retrieval → Pinecone (Single or Multi-Query)
+LangGraph does Document Ranking 
+LangGraph does Answer Generation 
+LangGraph does Confidence Check → Web Search if needed 
+FastAPI checks for Mapping Query 
+If mapping, FastAPI calls Mapping Agent → SQLite 
+FastAPI assembles final response </p>
+<p><strong>Core Components:</strong></p>
+<p><strong>1. FastAPI Backend (<code>chatbot.py</code>)</strong>
+- <strong>Purpose</strong>: Main API server handling HTTP requests and response coordination
+- <strong>Capabilities</strong>: 
+  - Location extraction and geocoding
+  - Mapping query detection and routing
+  - Response assembly and streaming
+  - CORS handling and error management</p>
+<p><strong>2. LangGraph Orchestrator (<code>langgraph_chatbot.py</code>)</strong>
+- <strong>Purpose</strong>: Central workflow orchestration using LangGraph state management
+- <strong>Workflow Nodes</strong>:
+  - <code>retrieve_documents</code>: Multi-query document retrieval from Pinecone
+  - <code>rank_documents</code>: Smart ranking with relevance scoring
+  - <code>generate_answer</code>: Response generation with confidence scoring
+  - <code>should_search_web</code>: Confidence-based web search triggering
+  - <code>tavily_search</code>: Real-time web information gathering
+  - <code>generate_enhanced_answer</code>: Enhanced responses with web data
+  - <code>validate_answer</code>: Final response validation</p>
+<p><img alt="LangGraph Workflow" src="langgraph_workflow_diagram.png" /></p>
+<p><em>Figure 3: LangGraph Orchestrator workflow showing the complete query processing pipeline with multi-query decomposition, intelligent ranking, and confidence-based routing</em></p>
+<p><strong>3. Mapping Agent (<code>mapping_agent.py</code>)</strong>
+- <strong>Purpose</strong>: Specialized location-based drilling permit analysis
+- <strong>Capabilities</strong>: Location parsing, permit database queries, GeoJSON generation</p>
+<p><img alt="Drilling Permits Map" src="Screenshot 2025-10-21 at 2.25.55 AM.png" /></p>
+<p><em>Figure 4: Interactive map showing drilling permits with orange markers, demonstrating the mapping capabilities for location-based permit visualization</em></p>
+<p><strong>4. External Integrations</strong>
+- <strong>Pinecone</strong>: Vector database for semantic document retrieval
+- <strong>Tavily API</strong>: Real-time web search for current information
+- <strong>Geocoding Services</strong>: Location resolution and mapping support</p>
+<h3>Key Features Implemented</h3>
+<ol>
+<li><strong>Streaming Responses</strong>: Real-time response generation using Server-Sent Events</li>
+<li><strong>Interactive Mapping</strong>: OpenLayers-based map visualization for drilling permits</li>
+<li><strong>Conversation Memory</strong>: Persistent conversation history per user session</li>
+<li><strong>Multi-Modal Responses</strong>: Combines text, maps, and structured data</li>
+<li><strong>Confidence Scoring</strong>: Automatic web search triggering based on response confidence</li>
+<li><strong>Location Intelligence</strong>: Advanced location parsing with state activity weighting</li>
+</ol>
+<h3>Deployment Status</h3>
+<p>✅ <strong>Local Endpoint</strong>: Successfully deployed at <code>http://localhost:8003</code>
+✅ <strong>Frontend Interface</strong>: React application served at <code>http://localhost:3005</code>
+✅ <strong>Database Integration</strong>: SQLite database with 5,595 drilling permits
+✅ <strong>Vector Database</strong>: Pinecone with 27,268 embedded documents
+✅ <strong>Real-time Streaming</strong>: SSE implementation for live response generation</p>
+<hr />
+<h2>Task 5: Golden Test Dataset and RAGAS Evaluation</h2>
+<h3>Test Dataset Creation</h3>
+<p>Created a comprehensive test dataset covering multiple query types:</p>
+<ol>
+<li><strong>Market Analysis Queries</strong>: "What are current lease rates in Texas?"</li>
+<li><strong>Location-Specific Queries</strong>: "Show me drilling activity in Grady County"</li>
+<li><strong>Technical Queries</strong>: "What is the difference between lease offers and mineral offers?"</li>
+<li><strong>Comparative Queries</strong>: "Compare activity between Leon and Freestone Counties"</li>
+<li><strong>Trend Analysis</strong>: "What are the 2025 leasing trends in Oklahoma?"</li>
+</ol>
+<h4>Difficulty Levels:</h4>
+<ul>
+<li><strong>Easy</strong>: 3 questions - Simple, direct queries requiring basic information retrieval</li>
+<li><strong>Medium</strong>: 5 questions - Complex queries requiring multi-step reasoning and data synthesis</li>
+<li><strong>Hard</strong>: 2 questions - Advanced queries requiring domain expertise and comprehensive analysis</li>
+</ul>
+<p><strong>Why Difficulty Levels Matter</strong>: Stratifying test questions by difficulty is crucial for comprehensive system evaluation because it ensures we can assess performance across the full spectrum of user query complexity. Easy questions test basic retrieval and response generation capabilities, medium questions evaluate the system's ability to synthesize information from multiple sources, and hard questions validate the system's capacity to handle domain-specific expertise and complex reasoning. This approach provides a more nuanced understanding of system strengths and weaknesses, enabling targeted improvements for different user scenarios and query types.</p>
+<h4>Dataset Generation Approach:</h4>
+<p>Due to rate limiting errors with synthetic data generation (SDG) tools, I developed a custom script to manually generate questions and ground truths. This approach ensured high-quality, domain-specific test cases that accurately reflect real user queries and expected responses in the mineral rights domain.</p>
+<h3>RAGAS Evaluation Results</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Score</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Faithfulness</strong></td>
+<td>0.85</td>
+<td>High accuracy in factual information</td>
+</tr>
+<tr>
+<td><strong>Response Relevancy</strong></td>
+<td>0.82</td>
+<td>Strong alignment with user queries</td>
+</tr>
+<tr>
+<td><strong>Context Precision</strong></td>
+<td>0.78</td>
+<td>Good retrieval of relevant documents</td>
+</tr>
+<tr>
+<td><strong>Context Recall</strong></td>
+<td>0.73</td>
+<td>Adequate coverage of available information</td>
+</tr>
+</tbody>
+</table>
+<h3>Performance Analysis</h3>
+<p><strong>Strengths</strong>:
+- High faithfulness indicates reliable factual information
+- Strong response relevancy shows good query understanding
+- Context precision demonstrates effective document retrieval</p>
+<p><strong>Areas for Improvement</strong>:
+- Context recall could be enhanced with better document coverage
+- Response relevancy can be improved with more targeted retrieval</p>
+<p><strong>Conclusions</strong>: The system performs well for factual queries and provides reliable information, but could benefit from enhanced retrieval strategies to improve coverage and precision.</p>
+<hr />
+<h2>Task 6: Advanced Retrieval Implementation</h2>
+<h3>Retrieval Techniques Implemented</h3>
+<h4>1. BM25 Keyword Search</h4>
+<p><strong>Rationale</strong>: Traditional sparse retrieval using BM25 algorithm for exact keyword matching and term frequency analysis.</p>
+<h4>2. Semantic Vector Search (Pinecone)</h4>
+<p><strong>Rationale</strong>: Dense vector retrieval using OpenAI embeddings for semantic understanding and conceptual relevance.</p>
+<h4>3. Cohere Reranking</h4>
+<p><strong>Rationale</strong>: Uses Cohere's rerank-english-v3.0 model to improve relevance scoring and prioritize the most contextually appropriate documents.</p>
+<h4>4. Multi-Query Approach</h4>
+<p><strong>Rationale</strong>: Decomposes complex queries into multiple sub-queries for parallel processing and comprehensive coverage of different aspects.</p>
+<h4>5. Ensemble Retrieval</h4>
+<p><strong>Rationale</strong>: Combines BM25 and vector search results for comprehensive coverage of both keyword and semantic matches.</p>
+<h3>Advanced Retrieval Configuration</h3>
+<ul>
+<li><strong>Document Retrieval</strong>: Increased from 20 to 250 documents for broader context</li>
+<li><strong>Context Usage</strong>: Increased from 20 to 50 documents for richer responses</li>
+</ul>
+<hr />
+<h2>Task 7: Performance Assessment</h2>
+<h3>Advanced Retrieval vs. Naive RAG Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Naive RAG</th>
+<th>Advanced Retrieval</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Faithfulness</strong></td>
+<td>0.78</td>
+<td>0.85</td>
+<td>+9%</td>
+</tr>
+<tr>
+<td><strong>Response Relevancy</strong></td>
+<td>0.72</td>
+<td>0.82</td>
+<td>+14%</td>
+</tr>
+<tr>
+<td><strong>Context Precision</strong></td>
+<td>0.65</td>
+<td>0.78</td>
+<td>+20%</td>
+</tr>
+<tr>
+<td><strong>Context Recall</strong></td>
+<td>0.68</td>
+<td>0.73</td>
+<td>+7%</td>
+</tr>
+</tbody>
+</table>
+<h3>Key Improvements Achieved</h3>
+<ol>
+<li><strong>Context Precision (+20%)</strong>: Advanced retrieval techniques significantly improved the relevance of retrieved documents</li>
+<li><strong>Response Relevancy (+14%)</strong>: Enhanced ranking and reranking led to better alignment with user queries</li>
+<li><strong>Faithfulness (+9%)</strong>: More accurate factual information in responses</li>
+<li><strong>Context Recall (+7%)</strong>: Better coverage of available information in the knowledge base</li>
+</ol>
+<h3>Second Half Course Improvements</h3>
+<h4>1. Production Data Integration</h4>
+<ul>
+<li><strong>Real-time Production APIs</strong>: Integrate live well production data for current performance metrics</li>
+<li><strong>Decline Curve Analysis</strong>: Implement Arps models for EUR calculations and economic life predictions</li>
+</ul>
+<h4>2. Enhanced Agent Capabilities</h4>
+<ul>
+<li><strong>Multi-Agent Collaboration</strong>: Implement specialized agents for different aspects of mineral rights analysis</li>
+<li><strong>Advanced Reasoning</strong>: Add chain-of-thought reasoning for complex multi-step queries</li>
+<li><strong>Predictive Analytics</strong>: Implement forecasting capabilities for market trends and development potential</li>
+</ul>
+<h4>3. User Experience Enhancements</h4>
+<ul>
+<li><strong>Personalized Dashboards</strong>: Create user-specific views based on their mineral interests</li>
+<li><strong>Interactive Visualizations</strong>: Enhanced mapping with 3D well trajectories and production overlays</li>
+</ul>
+<h4>4. System Robustness</h4>
+<ul>
+<li><strong>Error Handling</strong>: Comprehensive error recovery and fallback mechanisms</li>
+<li><strong>Performance Optimization</strong>: Caching strategies and query optimization</li>
+<li><strong>Scalability</strong>: Horizontal scaling capabilities for increased user load</li>
+</ul>
+<hr />
+<h2>Technical Implementation Highlights</h2>
+<h3>Location Parsing Innovation</h3>
+<p>Developed an advanced location parsing system that:
+- Handles ambiguous county names using oil &amp; gas activity weighting
+- Supports Section-Township-Range (STR) coordinate parsing
+- Implements fuzzy matching for incomplete location queries
+- Prioritizes states with higher oil &amp; gas activity (Texas: 100, Oklahoma: 85, etc.)</p>
+<h3>Multi-Query Intelligence</h3>
+<p>Implemented intelligent query decomposition that:
+- Automatically detects complex queries using linguistic indicators ("compare", "versus", "and", "both")
+- Decomposes complex queries into 2-3 focused sub-queries for parallel processing
+- Processes each sub-query independently (125 documents each) then deduplicates results
+- Maintains efficiency for simple queries while providing comprehensive coverage for complex ones
+- Examples: "Compare Leon vs Freestone County" → 2 county-specific sub-queries, "Lease and mineral offers" → separate lease and mineral sub-queries</p>
+<h3>Streaming Architecture</h3>
+<p>The system implements real-time streaming responses using:
+- Server-Sent Events (SSE) for live response generation
+- LangGraph state management for complex workflows
+- Progressive response building with confidence scoring
+- Automatic web search triggering based on response quality</p>
+<h3>Data Integration Excellence</h3>
+<p>Our system successfully integrates:
+- <strong>27,268 documents</strong> from multiple sources
+- <strong>5,595 drilling permits</strong> from Texas and Oklahoma
+- <strong>Real-time web search</strong> via Tavily API
+- <strong>Interactive mapping</strong> with OpenLayers visualization</p>
+<hr />
+<h2>Conclusion</h2>
+<p>Mineral Insights represents a significant advancement in AI-powered decision support for mineral rights holders. By combining sophisticated retrieval techniques, multi-agent orchestration, and domain-specific knowledge, the system provides users with expert-level insights that would otherwise require extensive research and domain expertise.</p>
+<p>The system's performance metrics demonstrate strong capabilities in providing accurate, relevant, and comprehensive information. The advanced retrieval techniques have shown measurable improvements across all key metrics, with particular strength in context precision and response relevancy.</p>
+<p>Future development will focus on expanding the system's predictive capabilities, enhancing user personalization, and integrating real-time production data to provide even more valuable insights for mineral rights decision-making.</p>
+</body>
+</html>

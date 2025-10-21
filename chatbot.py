@@ -16,6 +16,7 @@ from langchain.memory import ConversationBufferWindowMemory
 import cohere
 # Import LangGraph chatbot
 from langgraph_chatbot import stream_mineral_query, run_mineral_query
+
 # Simple memory implementation to avoid pydantic compatibility issues
 class SimpleChatMessageHistory:
     def __init__(self):
@@ -35,6 +36,8 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from pydantic import BaseModel
 import os
+import pickle
+from pathlib import Path
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 # Geospatial libraries
@@ -79,11 +82,54 @@ load_dotenv()
 # Initialize geocoder
 geolocator = Nominatim(user_agent="mineral_insights_app")
 
-def geocode_location(location_text, max_retries=3):
+# Geocoding cache
+class GeocodingCache:
+    def __init__(self, cache_file="geocoding_cache.pkl"):
+        self.cache_file = Path(cache_file)
+        self.cache = self.load_cache()
+    
+    def load_cache(self):
+        if self.cache_file.exists():
+            try:
+                with open(self.cache_file, 'rb') as f:
+                    return pickle.load(f)
+            except:
+                return {}
+        return {}
+    
+    def save_cache(self):
+        try:
+            with open(self.cache_file, 'wb') as f:
+                pickle.dump(self.cache, f)
+        except:
+            pass
+    
+    def get(self, key):
+        return self.cache.get(key)
+    
+    def set(self, key, value):
+        self.cache[key] = value
+        self.save_cache()
+
+geocoding_cache = GeocodingCache()
+
+def geocode_location(location_text, max_retries=2):
     """
     Geocode a location string to get coordinates using Nominatim (OpenStreetMap)
-    with US bias for oil and gas regions
+    with caching and improved timeout handling
     """
+    if not location_text or not location_text.strip():
+        return None
+    
+    location_text = location_text.strip()
+    
+    # Check cache first
+    cache_key = location_text.lower()
+    cached_result = geocoding_cache.get(cache_key)
+    if cached_result:
+        print(f"🎯 Using cached geocoding result for: {location_text}")
+        return cached_result
+    
     # First, check for well-known US oil and gas regions
     us_oil_gas_regions = {
         'permian basin': [-101.0, 31.5],  # West Texas/New Mexico
@@ -141,17 +187,19 @@ def geocode_location(location_text, max_retries=3):
     # Check if it's a known US oil/gas region
     location_lower = location_text.lower().strip()
     if location_lower in us_oil_gas_regions:
-        return {
+        result = {
             "coordinates": us_oil_gas_regions[location_lower],
             "address": f"{location_text}, United States",
             "confidence": "high"
         }
+        geocoding_cache.set(cache_key, result)  # Cache the result
+        return result
     
     for attempt in range(max_retries):
         try:
             # Add a small delay to respect rate limits
             if attempt > 0:
-                time.sleep(1)
+                time.sleep(0.5)  # Reduced delay
             
             # For counties, try major oil/gas states first before generic USA
             if 'county' in location_text.lower():
@@ -160,58 +208,66 @@ def geocode_location(location_text, max_retries=3):
                 
                 for state in oil_gas_states:
                     try:
-                        location = geolocator.geocode(f"{location_text}, {state}, USA", timeout=3)
+                        location = geolocator.geocode(f"{location_text}, {state}, USA", timeout=5)  # Increased timeout
                         if location:
-                            return {
+                            result = {
                                 "coordinates": [location.longitude, location.latitude],
                                 "address": location.address,
                                 "confidence": "high"
                             }
+                            geocoding_cache.set(cache_key, result)  # Cache the result
+                            return result
                     except:
                         continue
             
             # Try geocoding with US bias
-            location = geolocator.geocode(f"{location_text}, USA", timeout=3)
+            location = geolocator.geocode(f"{location_text}, USA", timeout=5)  # Increased timeout
             
             if location:
                 # Check if the result is in the US
                 address = location.address.lower()
                 if any(us_indicator in address for us_indicator in ['united states', 'usa', 'us']):
-                    return {
+                    result = {
                         "coordinates": [location.longitude, location.latitude],
                         "address": location.address,
                         "confidence": "high"
                     }
+                    geocoding_cache.set(cache_key, result)  # Cache the result
+                    return result
             
             # If not in US, try without USA suffix
-            location = geolocator.geocode(location_text, timeout=3)
+            location = geolocator.geocode(location_text, timeout=5)  # Increased timeout
             
             if location:
                 # Check if the result is in the US
                 address = location.address.lower()
                 if any(us_indicator in address for us_indicator in ['united states', 'usa', 'us']):
-                    return {
+                    result = {
                         "coordinates": [location.longitude, location.latitude],
                         "address": location.address,
                         "confidence": "medium"
                     }
+                    geocoding_cache.set(cache_key, result)  # Cache the result
+                    return result
             
             # If still not in US, try with "Texas, USA" suffix as a more common fallback
             location_with_state = f"{location_text}, Texas, USA"
-            location = geolocator.geocode(location_with_state, timeout=3)
+            location = geolocator.geocode(location_with_state, timeout=5)  # Increased timeout
             
             if location:
-                return {
+                result = {
                     "coordinates": [location.longitude, location.latitude],
                     "address": location.address,
                     "confidence": "low"
                 }
+                geocoding_cache.set(cache_key, result)  # Cache the result
+                return result
                 
         except (GeocoderTimedOut, GeocoderServiceError) as e:
             print(f"Geocoding attempt {attempt + 1} failed: {e}")
             if attempt == max_retries - 1:
                 return None
-            time.sleep(2)  # Wait longer before retry
+            time.sleep(1)  # Reduced wait time
         except Exception as e:
             print(f"Unexpected geocoding error: {e}")
             return None
@@ -502,6 +558,26 @@ def extract_locations_with_ner(query):
             'production', 'drilling', 'completion', 'stimulation', 'fracturing'
         }
         
+        # Common typos and corrections for oil & gas counties
+        location_corrections = {
+            'loen': 'leon',
+            'leon county': 'leon county',
+            'leon': 'leon',
+            'dawson county': 'dawson county',
+            'dawson': 'dawson',
+            'grady county': 'grady county',
+            'grady': 'grady',
+            'washington county': 'washington county',
+            'washington': 'washington',
+            'freestone county': 'freestone county',
+            'freestone': 'freestone',
+            'robertson county': 'robertson county',
+            'robertson': 'robertson',
+            'rogers mills': 'roger mills',
+            'roger mills county': 'roger mills county',
+            'roger mills': 'roger mills'
+        }
+        
         # Extract GPE (Geo-Political Entities) and LOC (Locations)
         for ent in doc.ents:
             if ent.label_ in ["GPE", "LOC"]:
@@ -509,8 +585,16 @@ def extract_locations_with_ner(query):
                 if len(ent.text) >= 4:
                     # Filter out common non-location words
                     if ent.text.lower() not in non_location_words:
-                        locations.append(ent.text)
-                        print(f"🔍 spaCy detected location: '{ent.text}' (type: {ent.label_})")
+                        # Apply fuzzy matching corrections
+                        corrected_text = ent.text.lower()
+                        for typo, correction in location_corrections.items():
+                            if typo in corrected_text:
+                                corrected_text = corrected_text.replace(typo, correction)
+                                print(f"🔧 Corrected '{ent.text}' to '{corrected_text}'")
+                                break
+                        
+                        locations.append(corrected_text.title())
+                        print(f"🔍 spaCy detected location: '{ent.text}' -> '{corrected_text.title()}' (type: {ent.label_})")
                     else:
                         print(f"🔍 spaCy detected but filtered out: '{ent.text}' (common non-location word)")
         
@@ -522,6 +606,12 @@ def extract_locations_with_ner(query):
 # Parse location data from query using dynamic geocoding
 def extract_location(query):
     query_lower = query.lower()
+    
+    # OIL & GAS STATE WEIGHTING: Heavy preference for states with oil & gas activity mentioned in forum data
+    # Based on your mineral rights forum data, these are the states with significant activity
+    oil_gas_states = ['texas', 'oklahoma', 'louisiana', 'north dakota', 'colorado', 'pennsylvania', 'ohio', 'west virginia', 'wyoming', 'new mexico', 'kansas', 'arkansas']
+    
+    # Clarification feature removed - process county-only queries normally
     
     # First, check for Section-Township-Range patterns (keep this as it's specific to mineral rights)
     str_patterns = [
@@ -605,6 +695,7 @@ def extract_location(query):
         simple_matches = re.findall(simple_county_pattern, query_lower)
         if simple_matches:
             matches = simple_matches
+    
     for match in matches:
         location_name = match[0].strip()
         state = match[1].strip()
@@ -630,6 +721,10 @@ def extract_location(query):
         full_state = state_abbrev_map.get(state.lower(), state)
         full_location = f"{location_name}, {full_state}"
         
+        # Heavy weighting for oil & gas states - prioritize these locations
+        oil_gas_boost = 2.0 if full_state.lower() in oil_gas_states else 1.0
+        print(f"🎯 Oil & gas state weighting: {oil_gas_boost}x for '{full_state}'")
+            
         # Try geocoding this county/state combination immediately
         print(f"Attempting to geocode county/state: '{full_location}'")
         geocode_result = geocode_location(full_location)
@@ -730,6 +825,8 @@ def extract_location(query):
                 "confidence": geocode_result.get("confidence", "medium")
             }
     
+    # Oil & gas states already defined at top of function
+    
     # Try to geocode each potential location term (but be selective)
     for term in location_terms:
         # Skip very short terms (less than 4 chars)
@@ -739,9 +836,18 @@ def extract_location(query):
         # Skip if the term is just a common word
         if term.lower() in excluded_words:
             continue
-            
+        
+        # Check if this location is in an oil & gas state before geocoding
+        # This prevents zooming to non-oil & gas areas
         print(f"Attempting to geocode: '{term}'")
         geocode_result = geocode_location(term)
+        
+        # If geocoding succeeded, check if it's in an oil & gas state
+        if geocode_result:
+            address = geocode_result.get("address", "").lower()
+            is_oil_gas_state = any(state in address for state in oil_gas_states)
+            oil_gas_boost = 2.0 if is_oil_gas_state else 1.0
+            print(f"🎯 Oil & gas state weighting: {oil_gas_boost}x for '{term}' -> {address}")
         
         if geocode_result:
             # Determine location type and zoom level based on the result
@@ -949,6 +1055,8 @@ async def chat(query: QueryRequest):
     try:
         location_data = extract_location(query.query)
         
+        # Clarification feature removed
+        
         # Get conversation history for LangGraph
         memory = get_conversation_memory(query.conversation_id)
         conversation_history = memory.messages
@@ -1078,6 +1186,8 @@ async def chat_stream(query: QueryRequest):
         try:
             # Get location data first (non-streaming)
             location_data = extract_location(query.query)
+            
+            # Clarification feature removed
             
             # Send initial response with location data
             initial_response = {
@@ -1455,9 +1565,55 @@ async def get_permits_by_location(
             else:
                 raise HTTPException(status_code=400, detail="Invalid Section-Township-Range values")
         
-        # Try to load Texas permits
-        tx_file = "Texas Drilling Permits/data/texas_permits_20251004.csv"
-        if os.path.exists(tx_file):
+        # Try to load from SQLite database first
+        db_path = "Drilling Permits/data/permits.db"
+        if os.path.exists(db_path):
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            
+            if county:
+                county_clean = county.upper().replace(" COUNTY", "").replace(" CO", "").strip()
+                cursor.execute("""
+                    SELECT api_number, entity_name, well_name, county, state, 
+                           surf_lat_y, surf_long_x, formation_name, total_depth, 
+                           well_type, permit_type, well_status
+                    FROM permits 
+                    WHERE UPPER(county) LIKE ? 
+                    LIMIT ?
+                """, (f"%{county_clean}%", limit))
+            elif lat is not None and lng is not None:
+                cursor.execute("""
+                    SELECT api_number, entity_name, well_name, county, state, 
+                           surf_lat_y, surf_long_x, formation_name, total_depth, 
+                           well_type, permit_type, well_status
+                    FROM permits 
+                    WHERE surf_lat_y IS NOT NULL AND surf_long_x IS NOT NULL
+                    LIMIT ?
+                """, (limit,))
+            else:
+                raise HTTPException(status_code=400, detail="Must provide either county or lat/lng")
+            
+            rows = cursor.fetchall()
+            
+            for row in rows:
+                permit = {
+                    "api_number": str(row[0]) if row[0] else "",
+                    "operator": str(row[1]) if row[1] else "",
+                    "well_name": str(row[2]) if row[2] else "",
+                    "county": str(row[3]) if row[3] else "",
+                    "state": str(row[4]) if row[4] else "",
+                    "latitude": float(row[5]) if row[5] is not None else None,
+                    "longitude": float(row[6]) if row[6] is not None else None,
+                    "formation": str(row[7]) if row[7] else "",
+                    "depth": float(row[8]) if row[8] is not None else None,
+                    "well_type": str(row[9]) if row[9] else "",
+                    "permit_date": str(row[10]) if row[10] else "",
+                    "status": str(row[11]) if row[11] else ""
+                }
+                permits.append(permit)
+            
+            conn.close()
+        elif os.path.exists("Texas Drilling Permits/data/texas_permits_20251004.csv"):
             df_tx = pd.read_csv(tx_file)
             
             if county:

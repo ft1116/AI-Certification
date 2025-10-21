@@ -405,7 +405,7 @@ const ChatAssistant: React.FC = () => {
             </h2>
           </div>
           <p style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.85)', margin: 0 }}>
-            Ask about valuations, leases, rights, and regulations
+            Ask about valuations, leases, rights, and regulations. Be as specific as possible and include information like County and State as well as section, township and range if possible.
           </p>
         </div>
 

@@ -76,6 +76,73 @@ class LangGraphChatbot:
         )
         return response.data[0].embedding
     
+    def _decompose_query(self, query: str) -> List[str]:
+        """Decompose complex queries into 2 focused sub-queries"""
+        query_lower = query.lower()
+        
+        # Check if query is complex enough to warrant decomposition
+        complexity_indicators = [
+            "compare", "versus", "vs", "and", "both", "multiple", "different",
+            "between", "across", "various", "several", "all", "each"
+        ]
+        
+        is_complex = any(indicator in query_lower for indicator in complexity_indicators)
+        
+        if not is_complex:
+            # Simple query - return as-is
+            return [query]
+        
+        # Decompose into 2 sub-queries
+        sub_queries = []
+        
+        # Strategy 1: Split on comparison words
+        if any(word in query_lower for word in ["compare", "versus", "vs", "between"]):
+            # Extract entities to compare
+            if "county" in query_lower:
+                # Extract county names
+                import re
+                counties = re.findall(r'(\w+\s+county)', query_lower)
+                if len(counties) >= 2:
+                    sub_queries = [
+                        f"lease rates and activity in {counties[0]}",
+                        f"lease rates and activity in {counties[1]}"
+                    ]
+        
+        # Strategy 2: Split on "and" or "both"
+        elif "and" in query_lower or "both" in query_lower:
+            # Try to split the query
+            if "lease" in query_lower and "mineral" in query_lower:
+                sub_queries = [
+                    "lease offers and rates",
+                    "mineral rights purchase offers"
+                ]
+            elif "texas" in query_lower and "oklahoma" in query_lower:
+                sub_queries = [
+                    "oil and gas activity in Texas",
+                    "oil and gas activity in Oklahoma"
+                ]
+        
+        # Strategy 3: General decomposition
+        if not sub_queries:
+            # Split into market analysis and specific data
+            if "market" in query_lower or "trends" in query_lower:
+                sub_queries = [
+                    "current market conditions and trends",
+                    "specific lease rates and mineral offers"
+                ]
+            else:
+                # Generic split
+                sub_queries = [
+                    f"general information about {query}",
+                    f"specific data and rates for {query}"
+                ]
+        
+        # Ensure we have exactly 2 sub-queries
+        if len(sub_queries) != 2:
+            sub_queries = [query, query]  # Fallback to original query
+        
+        return sub_queries
+    
     def pinecone_to_langchain_docs(self, pinecone_docs) -> List[Document]:
         """Convert Pinecone results to LangChain Documents (already in correct format)"""
         # PineconeVectorStore already returns Document objects, so we just need to enhance metadata
@@ -98,26 +165,43 @@ class LangGraphChatbot:
         
         # Node 1: Retrieve Documents (Single Semantic Search)
         def retrieve_documents(state: MineralQueryState):
-            """Single semantic search retrieval - fast and efficient"""
+            """Multi-query retrieval - decomposes complex queries into sub-queries"""
             query = state["query"]
             
-            print(f"🔍 Retrieving documents for: '{query}'")
+            print(f"🔍 Multi-query retrieval for: '{query}'")
             
             # Initialize Pinecone if not already done
             self._initialize_pinecone()
             
-            # Use Pinecone vector store (same as chatbot.py)
-            try:
-                # Get more documents to better utilize the 27K+ documents in the database
-                semantic_docs = self.vectorstore.similarity_search(query, k=250)
-                print(f"📊 Found {len(semantic_docs)} semantic matches")
-            except Exception as e:
-                print(f"⚠️ Semantic search error: {e}")
-                semantic_docs = []
+            # Multi-query decomposition
+            sub_queries = self._decompose_query(query)
+            print(f"📝 Decomposed into {len(sub_queries)} sub-queries: {sub_queries}")
             
-            print(f"📚 Total documents retrieved: {len(semantic_docs)}")
+            all_docs = []
             
-            return {"retrieved_documents": semantic_docs}
+            # Process each sub-query
+            for i, sub_query in enumerate(sub_queries):
+                try:
+                    print(f"🔍 Sub-query {i+1}: '{sub_query}'")
+                    # Get documents for this sub-query (fewer per sub-query to avoid overlap)
+                    sub_docs = self.vectorstore.similarity_search(sub_query, k=180)
+                    print(f"📊 Found {len(sub_docs)} documents for sub-query {i+1}")
+                    all_docs.extend(sub_docs)
+                except Exception as e:
+                    print(f"⚠️ Sub-query {i+1} error: {e}")
+            
+            # Deduplicate documents
+            seen_content = set()
+            unique_docs = []
+            for doc in all_docs:
+                content_hash = hash(doc.page_content[:100])  # Use first 100 chars as identifier
+                if content_hash not in seen_content:
+                    seen_content.add(content_hash)
+                    unique_docs.append(doc)
+            
+            print(f"📚 Total unique documents retrieved: {len(unique_docs)}")
+            
+            return {"retrieved_documents": unique_docs}
         
         # Node 2: Rank Documents (Smart Ranking)
         def rank_documents(state: MineralQueryState):
@@ -199,8 +283,8 @@ class LangGraphChatbot:
             # Sort by relevance score
             ranked_docs.sort(key=lambda x: x.metadata.get("relevance_score", 1.0), reverse=True)
             
-            # Take top 50 documents (increased to better utilize the 27K+ documents)
-            filtered_docs = ranked_docs[:50]
+            # Take top 35 documents (optimized for speed while maintaining quality)
+            filtered_docs = ranked_docs[:35]
             
             print(f"🏆 Top {len(filtered_docs)} documents selected for context")
             
@@ -396,11 +480,11 @@ Provide a helpful, accurate answer based on the context."""
             is_shale_play_query = any(keyword in query_lower for keyword in shale_play_keywords)
             
             # For streaming, we'll calculate confidence after we get the response
-            # For now, set a preliminary confidence
+            # For now, set a preliminary confidence - be more generous with pipeline data
             if needs_current_info or is_market_trend_query or is_specific_play_query:
-                confidence = 0.7
+                confidence = 0.6  # Lower threshold for current info queries
             else:
-                confidence = 0.9
+                confidence = 0.8  # Higher confidence for general queries
             
             return {
                 "final_answer": "",  # Will be filled by streaming
@@ -415,7 +499,7 @@ Provide a helpful, accurate answer based on the context."""
             confidence = state["confidence_score"]
             
             # Trigger web search for queries that need current information or have lower confidence
-            needs_search = confidence < 0.8  # More aggressive threshold for web search
+            needs_search = confidence < 0.5  # Much more conservative - rely on pipeline data
             
             print(f"🤔 Confidence: {confidence:.2f}, Needs web search: {needs_search}")
             
@@ -593,6 +677,12 @@ When discussing pricing:
 - Stay focused on the geographic area and topic requested in the question
 - Keep responses detailed but focused (avoid unnecessary elaboration)
 
+When providing lease rate information, if ranges are given in the answer, add context with recent lease averages:
+- Bonus payments typically range from $100-$3,000+ per acre depending on location and activity level
+- Royalty rates commonly range from 18-25% (with 3/16 or 18.75% being a traditional baseline)
+- Primary lease terms usually 3-5 years
+- Include these general market ranges when discussing specific lease offers to provide broader context
+
 When analyzing market trends:
 - Provide both current data AND trend direction (increasing/decreasing/stable)
 - Include time comparisons when possible (current vs historical)
@@ -678,7 +768,7 @@ Provide a helpful, accurate answer. If the question is about mineral rights, oil
         workflow.add_edge("rank", "generate")
         workflow.add_edge("generate", "should_search_web")
         
-        # Conditional edge: if confidence < 0.8, do web search, otherwise validate
+        # Conditional edge: if confidence < 0.5, do web search, otherwise validate
         def route_after_decision(state):
             if state["needs_web_search"]:
                 return "tavily_search"
