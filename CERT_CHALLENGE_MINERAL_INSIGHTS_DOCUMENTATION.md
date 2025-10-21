@@ -1,5 +1,7 @@
 # Mineral Insights: AI-Powered Mineral Rights Decision Support System
 
+## Loom videon link: https://www.loom.com/share/97b163078beb4611aed343685b5a6c71?sid=0d3b8ac6-be04-4365-b942-a615e91d39ad
+
 ## Executive Summary
 
 Mineral Insights is an advanced AI-powered chatbot that empowers mineral rights holders with domain expertise in petroleum engineering, geology, commercial, and land management to make informed decisions about their mineral interests. The system combines multiple data sources including Mineral Rights Forum discussions, Texas RRC data, Oklahoma OCC data, and real-time web information to provide comprehensive, accurate, and actionable insights.
